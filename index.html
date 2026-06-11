@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚽ Giải Dự Đoán World Cup 2026 — Live Payments</title>
+  <style>
+    :root {
+      --green-dark: #1a5c2e;
+      --green-mid: #2e7d46;
+      --green-light: #4caf50;
+      --gold: #f5a623;
+      --gold-light: #ffd700;
+      --white: #ffffff;
+      --gray-bg: #f0f4f0;
+      --gray-light: #f5f5f5;
+      --gray: #e0e0e0;
+      --gray-dark: #757575;
+      --text: #212121;
+      --red: #e53935;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--gray-bg); color: var(--text); }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(150deg, #0d3b1e 0%, var(--green-dark) 50%, #1e6b38 100%);
+      color: white; padding: 28px 20px 24px; text-align: center; position: relative; overflow: hidden;
+    }
+    .header::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(60deg, transparent, transparent 40px, rgba(255,255,255,.025) 40px, rgba(255,255,255,.025) 80px);
+    }
+    .header-content { position: relative; z-index: 1; }
+    .header-badge {
+      display: inline-block; background: var(--gold); color: var(--green-dark);
+      padding: 3px 14px; border-radius: 20px; font-size: 11px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;
+    }
+    .header h1 { font-size: 26px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 2px 8px rgba(0,0,0,.4); line-height: 1.2; }
+    .header h1 span { color: var(--gold-light); }
+    .header-sub { font-size: 13px; opacity: .75; margin-top: 6px; }
+    .header-stats { display: flex; justify-content: center; gap: 28px; margin-top: 18px; }
+    .stat-item { text-align: center; }
+    .stat-value { font-size: 22px; font-weight: 900; color: var(--gold-light); line-height: 1; }
+    .stat-label { font-size: 10px; opacity: .65; text-transform: uppercase; letter-spacing: .5px; margin-top: 2px; }
+
+    /* ── NAV ── */
+    .nav-tabs { background: #0d3b1e; display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .nav-tab {
+      padding: 13px 18px; color: rgba(255,255,255,.6); cursor: pointer;
+      white-space: nowrap; font-size: 13px; font-weight: 600;
+      border-bottom: 3px solid transparent; transition: all .2s; user-select: none;
+      flex-shrink: 0;
+    }
+    .nav-tab:hover { color: white; background: rgba(255,255,255,.06); }
+    .nav-tab.active { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+
+    /* ── LAYOUT ── */
+    .content { max-width: 880px; margin: 0 auto; padding: 20px 14px 40px; }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeUp .28s ease; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── CARDS ── */
+    .card { background: white; border-radius: 14px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 10px rgba(0,0,0,.07); }
+    .card-title { font-size: 15px; font-weight: 800; color: var(--green-dark); margin-bottom: 16px; display: flex; align-items: center; gap: 7px; }
+
+    /* ── TABLES ── */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .data-table th { background: var(--green-dark); color: white; padding: 10px 12px; text-align: left; font-size: 12px; }
+    .data-table th:not(:first-child) { text-align: center; }
+    .data-table td { padding: 10px 12px; border-bottom: 1px solid var(--gray); }
+    .data-table td:not(:first-child) { text-align: center; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:nth-child(even) td { background: #fafafa; }
+    .data-table tr:hover td { background: #f1f8f2; }
+
+    .pts { display: inline-block; padding: 3px 10px; border-radius: 20px; font-weight: 800; font-size: 12px; }
+    .pts-5 { background: #e8f5e9; color: #1b5e20; }
+    .pts-3 { background: #e3f2fd; color: #0d47a1; }
+    .pts-1 { background: #fff3e0; color: #e65100; }
+    .pts-0 { background: #ffebee; color: #b71c1c; }
+
+    .mx-badge { display: inline-block; padding: 2px 9px; border-radius: 10px; background: var(--gold); color: var(--green-dark); font-size: 11px; font-weight: 800; }
+    .mx-final { background: var(--red); color: white; }
+
+    /* ── PRIZES ── */
+    .prize-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 14px; }
+    .prize-box { text-align: center; padding: 16px 10px; border-radius: 12px; border: 2px solid var(--gray); }
+    .prize-box.gold { border-color: #ffd700; background: linear-gradient(145deg, #fffde7, #fff9c4); }
+    .prize-box.silver { border-color: #bdbdbd; background: linear-gradient(145deg, #fafafa, #f0f0f0); }
+    .prize-box.bronze { border-color: #bf8e52; background: linear-gradient(145deg, #fdf6ec, #f9ebda); }
+    .prize-icon { font-size: 28px; margin-bottom: 4px; }
+    .prize-name { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+    .prize-val { font-size: 15px; font-weight: 900; color: var(--green-dark); }
+    .prize-sub { font-size: 10px; color: #888; margin-top: 3px; }
+
+    /* ── ALERT ── */
+    .alert { padding: 12px 14px; border-radius: 10px; font-size: 13px; margin-bottom: 14px; line-height: 1.5; }
+    .alert-info { background: #e3f2fd; color: #0d47a1; border-left: 4px solid #2196f3; }
+    .alert-warn { background: #fff8e1; color: #e65100; border-left: 4px solid #ff9800; }
+    .alert-success { background: #e8f5e9; color: #1b5e20; border-left: 4px solid #4caf50; }
+    .alert-anim { animation: fadeUp .3s ease; }
+
+    /* ── REGISTER ── */
+    .form-group { margin-bottom: 14px; }
+    .form-label { display: block; font-size: 12px; font-weight: 700; color: var(--green-dark); margin-bottom: 5px; text-transform: uppercase; letter-spacing: .5px; }
+    .form-input, .form-select {
+      width: 100%; padding: 10px 13px; border: 2px solid var(--gray);
+      border-radius: 9px; font-size: 14px; outline: none;
+      transition: border-color .2s; background: white; color: var(--text);
+    }
+    .form-input:focus, .form-select:focus { border-color: var(--green-mid); }
+
+    /* ── USER PROFILE BAR ── */
+    .profile-bar {
+      background: white; border-radius: 12px; padding: 14px 18px;
+      margin-bottom: 14px; display: flex; align-items: center; gap: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08); border-left: 4px solid var(--green-mid);
+    }
+    .avatar {
+      width: 46px; height: 46px; background: var(--green-dark); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 20px; font-weight: 800; flex-shrink: 0;
+    }
+    .profile-info { flex: 1; min-width: 0; }
+    .profile-name { font-weight: 800; font-size: 15px; }
+    .profile-picks { font-size: 12px; color: var(--gray-dark); margin-top: 2px; }
+    .profile-pts { text-align: right; }
+    .profile-pts-num { font-size: 24px; font-weight: 900; color: var(--green-dark); line-height: 1; }
+    .profile-pts-lbl { font-size: 10px; color: var(--gray-dark); text-transform: uppercase; }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--green-dark); color: white; border-radius: 12px;
+      padding: 14px 18px; margin-bottom: 14px; display: flex; gap: 24px;
+    }
+    .stats-bar .sv { font-size: 20px; font-weight: 900; color: var(--gold-light); }
+    .stats-bar .sl { font-size: 11px; opacity: .7; margin-top: 1px; }
+
+    /* ── MATCHES ── */
+    .day-sep { text-align: center; position: relative; margin: 18px 0 10px; }
+    .day-sep::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--gray); }
+    .day-sep span { background: var(--gray-bg); padding: 0 12px; position: relative; font-size: 12px; font-weight: 700; color: var(--green-dark); }
+
+    .match-card {
+      background: white; border-radius: 12px; padding: 14px 16px;
+      margin-bottom: 10px; box-shadow: 0 1px 5px rgba(0,0,0,.07);
+      border-left: 4px solid #ccc; transition: border-color .2s;
+    }
+    .match-card.open { border-left-color: var(--green-mid); }
+    .match-card.done { border-left-color: var(--green-light); background: #fafffe; }
+
+    .match-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 11px; color: var(--gray-dark); }
+    .match-meta .badge-group { background: var(--green-dark); color: white; padding: 2px 8px; border-radius: 8px; font-size: 10px; font-weight: 700; }
+    .match-meta .badge-today { background: var(--red); color: white; padding: 2px 8px; border-radius: 8px; font-size: 10px; font-weight: 700; }
+    .match-meta .badge-done { background: var(--green-light); color: white; padding: 2px 8px; border-radius: 8px; font-size: 10px; font-weight: 700; }
+
+    .match-body { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; }
+    .team-name { font-size: 14px; font-weight: 700; }
+    .team-home { text-align: right; }
+    .team-away { text-align: left; }
+
+    .score-wrap { display: flex; align-items: center; gap: 5px; }
+    .score-in {
+      width: 44px; height: 40px; text-align: center; font-size: 18px; font-weight: 800;
+      border: 2px solid var(--gray); border-radius: 8px; outline: none;
+      transition: border-color .2s; -moz-appearance: textfield;
+    }
+    .score-in::-webkit-outer-spin-button, .score-in::-webkit-inner-spin-button { -webkit-appearance: none; }
+    .score-in:focus { border-color: var(--green-mid); }
+    .score-in:disabled { background: #f5f5f5; color: #999; }
+    .score-dash { font-size: 18px; font-weight: 800; color: var(--gray-dark); }
+
+    /* ── LEADERBOARD ── */
+    .lb-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .lb-table th { background: var(--green-dark); color: white; padding: 10px 12px; font-size: 11px; text-align: center; }
+    .lb-table th:nth-child(2) { text-align: left; }
+    .lb-table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; text-align: center; }
+    .lb-table td:nth-child(2) { text-align: left; }
+    .lb-table tr:last-child td { border-bottom: none; }
+    .lb-table tr.me td { background: #e8f8e9; font-weight: 700; }
+    .lb-table tr:hover td { background: #f9fbe7; }
+    .rank-medal { font-size: 18px; }
+    .p-name { font-weight: 700; font-size: 13px; }
+    .p-champ { font-size: 11px; color: var(--gray-dark); }
+    .total-pts { font-size: 17px; font-weight: 900; color: var(--green-dark); }
+
+    .mvp-banner {
+      background: linear-gradient(135deg, #fffde7, #fff59d);
+      border: 2px solid var(--gold); border-radius: 14px;
+      padding: 18px; text-align: center; margin-bottom: 16px;
+    }
+    .mvp-label { font-size: 11px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+    .mvp-name { font-size: 22px; font-weight: 900; color: var(--green-dark); margin: 6px 0; }
+    .mvp-sub { font-size: 12px; color: #555; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      padding: 11px 22px; border-radius: 9px; font-size: 13px; font-weight: 800;
+      cursor: pointer; border: none; transition: all .2s; display: inline-block;
+    }
+    .btn-primary { background: var(--green-dark); color: white; }
+    .btn-primary:hover { background: var(--green-mid); transform: translateY(-1px); }
+    .btn-gold { background: var(--gold); color: var(--green-dark); }
+    .btn-gold:hover { background: #f0b030; transform: translateY(-1px); }
+    .btn-block { width: 100%; text-align: center; }
+
+    /* ── EMAIL GATE ── */
+    .email-gate {
+      position: fixed; inset: 0; z-index: 100;
+      background: linear-gradient(150deg, #0d3b1e 0%, var(--green-dark) 60%, #1e6b38 100%);
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+    }
+    .gate-box {
+      background: white; border-radius: 20px; padding: 36px 28px;
+      max-width: 420px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,.4);
+      text-align: center;
+    }
+    .gate-logo { font-size: 48px; margin-bottom: 10px; }
+    .gate-title { font-size: 20px; font-weight: 900; color: var(--green-dark); margin-bottom: 4px; }
+    .gate-sub { font-size: 13px; color: #888; margin-bottom: 24px; line-height: 1.5; }
+    .gate-domain {
+      display: inline-block; background: #e8f5e9; color: var(--green-dark);
+      padding: 3px 10px; border-radius: 8px; font-size: 12px; font-weight: 700;
+      margin-bottom: 20px; border: 1px solid #a5d6a7;
+    }
+    .email-wrap { position: relative; margin-bottom: 8px; }
+    .email-wrap .form-input { padding-right: 40px; }
+    .email-status {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      font-size: 18px; display: none;
+    }
+    .gate-error {
+      font-size: 12px; color: var(--red); background: #ffebee;
+      padding: 8px 12px; border-radius: 8px; margin-bottom: 12px;
+      display: none; text-align: left; border-left: 3px solid var(--red);
+    }
+    .gate-note { font-size: 11px; color: #aaa; margin-top: 16px; }
+
+    /* ── UTILS ── */
+    .hidden { display: none !important; }
+    .text-center { text-align: center; }
+    .mt-16 { margin-top: 16px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .mini-box { border-radius: 10px; padding: 13px; }
+    .mini-box-green { background: #e8f5e9; border: 1px solid #c8e6c9; }
+    .mini-box-blue { background: #e3f2fd; border: 1px solid #bbdefb; }
+    .mini-box-orange { background: #fff3e0; border: 1px solid #ffe0b2; }
+    .mini-box-red { background: #fce4ec; border: 1px solid #f8bbd0; }
+    .mini-box h4 { font-size: 12px; font-weight: 800; margin-bottom: 4px; }
+    .mini-box p { font-size: 12px; color: #555; line-height: 1.5; }
+    .mini-box-green h4 { color: #1b5e20; }
+    .mini-box-blue h4 { color: #0d47a1; }
+    .mini-box-orange h4 { color: #bf360c; }
+    .mini-box-red h4 { color: #880e4f; }
+
+    .note-list { list-style: none; padding: 0; }
+    .note-list li { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; line-height: 1.5; }
+    .note-list li:last-child { border-bottom: none; }
+
+    .footer-note { text-align: center; padding: 24px 0 8px; color: #888; font-size: 12px; line-height: 1.8; }
+
+    @media (max-width: 480px) {
+      .prize-row { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .header h1 { font-size: 20px; }
+      .header-stats { gap: 20px; }
+      .stat-value { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ EMAIL GATE ═══ -->
+<div id="email-gate" class="email-gate">
+  <div class="gate-box">
+    <div class="gate-logo">⚽</div>
+    <div class="gate-title">Giải Dự Đoán World Cup 2026</div>
+    <div class="gate-sub">Live Payments — Phòng Nhân sự<br>Chỉ dành cho nhân viên công ty</div>
+    <div class="gate-domain">📧 Yêu cầu email @livepayments.com</div>
+    <div class="form-group" style="text-align:left;margin-bottom:8px">
+      <label class="form-label">Email công ty của bạn *</label>
+      <div class="email-wrap">
+        <input type="email" id="gate-email" class="form-input"
+          placeholder="ten.cua.ban@livepayments.com"
+          oninput="validateGateEmail(this)"
+          onkeydown="if(event.key==='Enter')submitGate()">
+        <span class="email-status" id="gate-status"></span>
+      </div>
+    </div>
+    <div class="gate-error" id="gate-error"></div>
+    <button class="btn btn-primary" onclick="submitGate()" style="width:100%;padding:13px;font-size:14px">
+      Xác nhận &amp; Vào trang →
+    </button>
+    <div class="gate-note">Chỉ email đuôi <strong>@livepayments.com</strong> mới được tham gia.<br>Thắc mắc liên hệ Phòng Nhân sự.</div>
+  </div>
+</div>
+
+<!-- ═══ HEADER ═══ -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-badge">Live Payments — Phòng Nhân sự</div>
+    <h1>⚽ Giải Dự Đoán <span>World Cup 2026</span> ⚽</h1>
+    <div class="header-sub">11/6/2026 – 19/7/2026 &nbsp;|&nbsp; 104 trận &nbsp;|&nbsp; Mở cho toàn thể nhân viên</div>
+    <div class="header-stats">
+      <div class="stat-item">
+        <div class="stat-value" id="stat-players">15</div>
+        <div class="stat-label">Người tham gia</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">104</div>
+        <div class="stat-label">Tổng trận</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">9M+</div>
+        <div class="stat-label">Tổng giải thưởng</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<div class="nav-tabs" id="nav-tabs">
+  <div class="nav-tab active" data-tab="overview">🏠 Tổng quan</div>
+  <div class="nav-tab" data-tab="predict">⚽ Dự đoán</div>
+  <div class="nav-tab" data-tab="leaderboard">🏆 Bảng xếp hạng</div>
+  <div class="nav-tab" data-tab="rules">📋 Thể lệ</div>
+</div>
+
+<!-- ═══ CONTENT ═══ -->
+<div class="content">
+
+  <!-- ──────────────────────────────────
+       TAB 1 · TỔNG QUAN
+  ────────────────────────────────── -->
+  <div id="tab-overview" class="tab-pane active">
+
+    <div class="alert alert-info">
+      🚀 <strong>Giải đấu chính thức bắt đầu hôm nay 11/6!</strong> Đăng ký ngay và dự đoán các trận Vòng bảng Lượt 1.
+    </div>
+
+    <!-- Prizes -->
+    <div class="card">
+      <div class="card-title">🏆 Giải Thưởng Chính</div>
+      <div class="prize-row">
+        <div class="prize-box gold">
+          <div class="prize-icon">🥇</div>
+          <div class="prize-name">Hạng Nhất</div>
+          <div class="prize-val">5.000.000đ</div>
+          <div class="prize-sub">+ Cúp vô địch</div>
+        </div>
+        <div class="prize-box silver">
+          <div class="prize-icon">🥈</div>
+          <div class="prize-name">Hạng Nhì</div>
+          <div class="prize-val">2.500.000đ</div>
+        </div>
+        <div class="prize-box bronze">
+          <div class="prize-icon">🥉</div>
+          <div class="prize-name">Hạng Ba</div>
+          <div class="prize-val">1.500.000đ</div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="mini-box mini-box-green">
+          <h4>⭐ MVP Hàng tuần (6 tuần)</h4>
+          <p>Người điểm cao nhất trong tuần — nhận voucher cà phê<br><strong>500.000đ</strong></p>
+        </div>
+        <div class="mini-box mini-box-blue">
+          <h4>🌟 Dự đoán VĐ xuất sắc</h4>
+          <p>Trong số người chọn đúng đội vô địch — quay số<br><strong>500.000đ</strong></p>
+        </div>
+        <div class="mini-box mini-box-red">
+          <h4>🎉 Lễ trao giải</h4>
+          <p>Tiệc xem Chung kết 19/7<br>Tổng kết 20–24/7</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Schedule -->
+    <div class="card">
+      <div class="card-title">📅 Lịch Trình Giải Đấu</div>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead>
+            <tr><th>Giai đoạn</th><th>Thời gian</th><th>Trận</th><th>Hệ số</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Chọn Đội VĐ & Vua phá lưới</td><td>11/6/2026</td><td>—</td><td>—</td></tr>
+            <tr><td>Vòng bảng – Lượt 1</td><td>11 – 17/6</td><td><strong>24</strong></td><td>×1</td></tr>
+            <tr><td>Vòng bảng – Lượt 2</td><td>18 – 24/6</td><td><strong>24</strong></td><td>×1</td></tr>
+            <tr><td>Vòng bảng – Lượt 3</td><td>25 – 27/6</td><td><strong>24</strong></td><td>×1</td></tr>
+            <tr style="background:#fff8e1"><td>Vòng 1/16</td><td>28/6 – 3/7</td><td><strong>16</strong></td><td><span class="mx-badge">×2</span></td></tr>
+            <tr style="background:#fff8e1"><td>Vòng 1/8 + Tứ kết</td><td>4 – 11/7</td><td><strong>12</strong></td><td><span class="mx-badge">×2</span></td></tr>
+            <tr style="background:#fce4ec"><td>Bán kết + Tranh HB3 + CHUNG KẾT</td><td>12 – 19/7</td><td><strong>4</strong></td><td><span class="mx-badge mx-final">×3</span></td></tr>
+            <tr><td>🎉 Lễ trao giải & Tổng kết</td><td>20 – 24/7</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Quick scoring -->
+    <div class="card">
+      <div class="card-title">⚡ Luật Tính Điểm Nhanh</div>
+      <div class="grid-2">
+        <div style="background:#e8f5e9;border-radius:10px;padding:14px;text-align:center">
+          <div style="font-size:28px;font-weight:900;color:#1b5e20">5</div>
+          <div style="font-size:12px;font-weight:700;color:#2e7d32">Đúng tỉ số chính xác</div>
+          <div style="font-size:11px;color:#555;margin-top:3px">Vd: đoán 2-1, KQ 2-1</div>
+        </div>
+        <div style="background:#e3f2fd;border-radius:10px;padding:14px;text-align:center">
+          <div style="font-size:28px;font-weight:900;color:#0d47a1">3</div>
+          <div style="font-size:12px;font-weight:700;color:#1565c0">Đúng KQ + đúng hiệu số</div>
+          <div style="font-size:11px;color:#555;margin-top:3px">Vd: đoán 2-1, KQ 3-2</div>
+        </div>
+        <div style="background:#fff3e0;border-radius:10px;padding:14px;text-align:center">
+          <div style="font-size:28px;font-weight:900;color:#e65100">1</div>
+          <div style="font-size:12px;font-weight:700;color:#bf360c">Chỉ đúng kết quả</div>
+          <div style="font-size:11px;color:#555;margin-top:3px">Vd: đoán 2-1, KQ 3-0</div>
+        </div>
+        <div style="background:#ffebee;border-radius:10px;padding:14px;text-align:center">
+          <div style="font-size:28px;font-weight:900;color:#b71c1c">0</div>
+          <div style="font-size:12px;font-weight:700;color:#c62828">Sai kết quả</div>
+          <div style="font-size:11px;color:#555;margin-top:3px">Vd: đoán 2-1, KQ 0-2</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:12px;background:#f3e5f5;border-radius:10px;border:1px solid #ce93d8">
+        <div style="font-weight:700;font-size:12px;color:#6a1b9a">🎯 Thưởng đặc biệt</div>
+        <div style="font-size:12px;color:#555;margin-top:5px;line-height:1.7">
+          🏆 Đội vô địch đúng: <strong>+20 điểm</strong> (khoá từ đầu, trao sau Chung kết)<br>
+          👟 Vua phá lưới đúng: <strong>+10 điểm</strong><br>
+          ✖️ Vòng 1/16 trở đi: điểm ×2 | Chung kết: điểm <strong>×3</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="card" style="text-align:center;background:linear-gradient(135deg,var(--green-dark),var(--green-mid));color:white;padding:28px">
+      <div style="font-size:28px;margin-bottom:8px">⚽</div>
+      <div style="font-size:18px;font-weight:900;margin-bottom:6px">Tham gia ngay hôm nay!</div>
+      <div style="font-size:13px;opacity:.8;margin-bottom:18px">Đăng ký, chọn đội vô địch & Vua phá lưới — khoá ngay sau khi xác nhận</div>
+      <button class="btn btn-gold" onclick="switchTab('predict')">⚽ Đăng ký & Dự đoán ngay</button>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────
+       TAB 2 · DỰ ĐOÁN
+  ────────────────────────────────── -->
+  <div id="tab-predict" class="tab-pane">
+
+    <!-- REGISTER FORM -->
+    <div id="reg-section" class="card">
+      <div class="card-title">👤 Đăng Ký Tham Gia</div>
+      <div class="alert alert-warn">
+        ⚠️ Chọn <strong>Đội vô địch</strong> và <strong>Vua phá lưới</strong> chỉ được <strong>1 lần duy nhất</strong> và khoá ngay sau khi xác nhận!
+      </div>
+      <div class="form-group">
+        <label class="form-label">📧 Email công ty</label>
+        <input type="text" id="reg-email-display" class="form-input" disabled
+          style="background:#f5f5f5;color:#555;cursor:not-allowed">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Họ và tên *</label>
+        <input type="text" id="reg-name" class="form-input" placeholder="Nhập tên của bạn...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">🏆 Đội vô địch World Cup 2026 *</label>
+        <select id="reg-champion" class="form-select">
+          <option value="">-- Chọn đội --</option>
+          <optgroup label="🌎 Nam Mỹ">
+            <option>🇧🇷 Brazil</option><option>🇦🇷 Argentina</option>
+            <option>🇺🇾 Uruguay</option><option>🇨🇴 Colombia</option>
+            <option>🇪🇨 Ecuador</option><option>🇨🇱 Chile</option>
+          </optgroup>
+          <optgroup label="🌍 Châu Âu">
+            <option>🇫🇷 France</option><option>🇪🇸 Spain</option>
+            <option>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</option><option>🇩🇪 Germany</option>
+            <option>🇵🇹 Portugal</option><option>🇳🇱 Netherlands</option>
+            <option>🇧🇪 Belgium</option><option>🇮🇹 Italy</option>
+            <option>🇭🇷 Croatia</option><option>🇩🇰 Denmark</option>
+            <option>🇨🇭 Switzerland</option><option>🇵🇱 Poland</option>
+            <option>🇦🇹 Austria</option><option>🇹🇷 Turkey</option>
+            <option>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</option>
+          </optgroup>
+          <optgroup label="🌎 Bắc Mỹ (Chủ nhà)">
+            <option>🇺🇸 USA</option><option>🇲🇽 Mexico</option><option>🇨🇦 Canada</option>
+          </optgroup>
+          <optgroup label="🌏 Châu Á & Oceania">
+            <option>🇯🇵 Japan</option><option>🇰🇷 South Korea</option>
+            <option>🇸🇦 Saudi Arabia</option><option>🇮🇷 Iran</option>
+            <option>🇦🇺 Australia</option><option>🇶🇦 Qatar</option>
+          </optgroup>
+          <optgroup label="🌍 Châu Phi">
+            <option>🇲🇦 Morocco</option><option>🇸🇳 Senegal</option>
+            <option>🇳🇬 Nigeria</option><option>🇪🇬 Egypt</option>
+            <option>🇨🇮 Ivory Coast</option><option>🇬🇭 Ghana</option>
+            <option>🇨🇲 Cameroon</option><option>🇹🇳 Tunisia</option>
+          </optgroup>
+          <optgroup label="🌎 Trung & Nam Mỹ khác">
+            <option>🇻🇪 Venezuela</option><option>🇵🇪 Peru</option>
+            <option>🇭🇳 Honduras</option><option>🇯🇲 Jamaica</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">👟 Vua phá lưới (Chiếc giày vàng) *</label>
+        <select id="reg-scorer" class="form-select">
+          <option value="">-- Chọn cầu thủ --</option>
+          <optgroup label="Tiền đạo châu Âu">
+            <option>Kylian Mbappé (France)</option>
+            <option>Harry Kane (England)</option>
+            <option>Erling Haaland (Norway)</option>
+            <option>Florian Wirtz (Germany)</option>
+            <option>Jamal Musiala (Germany)</option>
+            <option>Pedri (Spain)</option>
+            <option>Bukayo Saka (England)</option>
+            <option>Phil Foden (England)</option>
+          </optgroup>
+          <optgroup label="Tiền đạo Nam Mỹ">
+            <option>Vinicius Jr. (Brazil)</option>
+            <option>Rodrygo (Brazil)</option>
+            <option>Raphinha (Brazil)</option>
+            <option>Lautaro Martinez (Argentina)</option>
+            <option>Darwin Núñez (Uruguay)</option>
+          </optgroup>
+          <optgroup label="Cầu thủ khác">
+            <option>Christian Pulisic (USA)</option>
+            <option>Hirving Lozano (Mexico)</option>
+            <option>Kaoru Mitoma (Japan)</option>
+            <option>Son Heung-min (South Korea)</option>
+            <option>Mohamed Salah (Egypt)</option>
+            <option>Victor Osimhen (Nigeria)</option>
+            <option>Achraf Hakimi (Morocco)</option>
+            <option>Sadio Mané (Senegal)</option>
+          </optgroup>
+        </select>
+      </div>
+      <button class="btn btn-gold btn-block" id="reg-btn" onclick="registerUser()">
+        🔒 Xác nhận Đăng ký &amp; Khoá dự đoán đặc biệt
+      </button>
+    </div>
+
+    <!-- PROFILE BAR (hidden until registered) -->
+    <div id="profile-bar" class="profile-bar hidden">
+      <div class="avatar" id="av-letter">A</div>
+      <div class="profile-info">
+        <div class="profile-name" id="av-name">—</div>
+        <div class="profile-picks">📧 <span id="av-email" style="color:#888;font-size:11px">—</span></div>
+      <div class="profile-picks">🏆 <span id="av-champ">—</span> &nbsp;|&nbsp; 👟 <span id="av-scorer">—</span></div>
+      </div>
+      <div class="profile-pts">
+        <div class="profile-pts-num" id="av-pts">0</div>
+        <div class="profile-pts-lbl">điểm</div>
+      </div>
+    </div>
+
+    <!-- PREDICTIONS (hidden until registered) -->
+    <div id="pred-section" class="hidden">
+
+      <div class="alert alert-success alert-anim">
+        ✅ Đã đăng ký thành công! Nhập tỉ số dự đoán và nhấn <strong>Lưu tất cả</strong>.
+      </div>
+
+      <div class="stats-bar">
+        <div><div class="sv" id="cnt-done">0</div><div class="sl">Đã dự đoán</div></div>
+        <div><div class="sv" id="cnt-left" style="color:#ff8a65">24</div><div class="sl">Chưa dự đoán</div></div>
+        <div><div class="sv">24</div><div class="sl">Tổng trận T1</div></div>
+      </div>
+
+      <div id="match-list"></div>
+
+      <div class="text-center mt-16">
+        <button class="btn btn-primary" onclick="saveAll()" style="padding:13px 36px;font-size:14px">
+          💾 Lưu tất cả dự đoán
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────
+       TAB 3 · BẢNG XẾP HẠNG
+  ────────────────────────────────── -->
+  <div id="tab-leaderboard" class="tab-pane">
+
+    <div class="mvp-banner">
+      <div class="mvp-label">⭐ MVP Tuần 1 — Hạng Nhất</div>
+      <div class="mvp-name">Nguyễn Văn An</div>
+      <div class="mvp-sub">42 điểm tuần này &nbsp;|&nbsp; 🏆 Argentina &nbsp;|&nbsp; 👟 Mbappé</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <span>🏆 Bảng Xếp Hạng Tổng</span>
+        <span style="font-size:11px;font-weight:400;color:#888">Cập nhật: Thứ Hai 16/6</span>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="lb-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Người chơi</th>
+              <th>Đội VĐ</th>
+              <th>⭐ Chính xác</th>
+              <th>✓ KQ đúng</th>
+              <th>Tổng</th>
+            </tr>
+          </thead>
+          <tbody id="lb-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card" style="padding:16px">
+        <div class="card-title" style="font-size:13px;margin-bottom:10px">🎯 Dự đoán chính xác nhất tuần</div>
+        <div style="text-align:center">
+          <div style="font-size:18px;font-weight:800">Trần Thị Bình</div>
+          <div style="font-size:12px;color:var(--green-mid);margin-top:4px">8/12 trận đúng tỉ số</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────
+       TAB 4 · THỂ LỆ
+  ────────────────────────────────── -->
+  <div id="tab-rules" class="tab-pane">
+
+    <div class="card">
+      <div class="card-title">📖 Giới Thiệu</div>
+      <p style="font-size:13px;line-height:1.7;color:#444">
+        Cuộc thi dự đoán kéo dài <strong>5,5 tuần</strong>, trải dài toàn bộ <strong>104 trận đấu</strong> World Cup 2026.
+        Mỗi nhân viên dự đoán tỉ số trước từng trận và ghi điểm theo mức độ chính xác.
+        Bảng xếp hạng hàng tuần tạo không khí cạnh tranh vui vẻ; <strong>Top 3 nhận giải thưởng</strong> vào cuối giải đấu.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📊 Luật Tính Điểm</div>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead>
+            <tr><th>Kết quả dự đoán</th><th>Mô tả ví dụ</th><th>Điểm</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Đúng tỉ số chính xác</strong></td><td>Đoán 2-1, KQ 2-1</td><td><span class="pts pts-5">5 điểm</span></td></tr>
+            <tr><td><strong>Đúng KQ + đúng hiệu số</strong></td><td>Đoán 2-1, KQ 3-2 (cùng cách biệt 1)</td><td><span class="pts pts-3">3 điểm</span></td></tr>
+            <tr><td><strong>Chỉ đúng kết quả</strong></td><td>Đoán 2-1, KQ 3-0 (đội thắng đúng)</td><td><span class="pts pts-1">1 điểm</span></td></tr>
+            <tr><td><strong>Sai</strong></td><td>Đoán 2-1, KQ 0-2 (sai đội thắng)</td><td><span class="pts pts-0">0 điểm</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🌟 Thưởng Đặc Biệt</div>
+      <div class="grid-2" style="margin-bottom:12px">
+        <div class="mini-box mini-box-green">
+          <h4>🏆 Đội vô địch đúng: +20 điểm</h4>
+          <p>Khoá trước khi giải bắt đầu. Chỉ trao điểm sau trận Chung kết.</p>
+        </div>
+        <div class="mini-box mini-box-blue">
+          <h4>👟 Vua phá lưới đúng: +10 điểm</h4>
+          <p>Dự đoán cầu thủ giành Chiếc giày vàng. Khoá từ đầu giải.</p>
+        </div>
+      </div>
+      <div style="background:#f3e5f5;border-radius:10px;padding:14px;border:1px solid #ce93d8">
+        <div style="font-weight:800;font-size:12px;color:#6a1b9a;margin-bottom:6px">✖️ Hệ số nhân Vòng loại trực tiếp</div>
+        <div style="font-size:13px;line-height:1.8">
+          Từ <strong>Vòng 1/16</strong> trở đi: điểm mỗi trận nhân <strong>×2</strong><br>
+          Trận <strong>Chung kết</strong>: điểm nhân <strong>×3</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏅 Bảng Giải Thưởng Đầy Đủ</div>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead><tr><th>Giải</th><th>Mô tả</th><th>Giá trị</th></tr></thead>
+          <tbody>
+            <tr><td>🥇 Hạng Nhất</td><td>Cúp vô địch + tiền mặt</td><td><strong>5.000.000 VND</strong></td></tr>
+            <tr><td>🥈 Hạng Nhì</td><td>Tiền mặt</td><td><strong>2.500.000 VND</strong></td></tr>
+            <tr><td>🥉 Hạng Ba</td><td>Tiền mặt</td><td><strong>1.500.000 VND</strong></td></tr>
+            <tr><td>⭐ MVP Hàng tuần</td><td>Điểm cao nhất mỗi tuần × 6 tuần</td><td><strong>500.000 VND</strong></td></tr>
+            <tr><td>🌟 Dự đoán VĐ xuất sắc</td><td>Trong số người chọn đúng đội VĐ — quay số</td><td><strong>500.000 VND</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📌 Cách Tham Gia</div>
+      <div style="font-size:13px;line-height:1.7;color:#444">
+        <div style="font-weight:800;color:var(--green-dark);margin-bottom:4px">Bước 1 — Đăng ký (từ ngày 1–10/6)</div>
+        <ul style="padding-left:18px;margin-bottom:12px">
+          <li>Điền form đăng ký, chọn <strong>Đội vô địch</strong> và <strong>Vua phá lưới</strong> — khoá ngay khi xác nhận</li>
+          <li>Tham gia kênh Slack <strong>#wc2026-league</strong> để theo dõi thông báo hàng ngày</li>
+        </ul>
+        <div style="font-weight:800;color:var(--green-dark);margin-bottom:4px">Bước 2 — Dự đoán từng trận (suốt giải)</div>
+        <ul style="padding-left:18px">
+          <li>Nhập tỉ số dự kiến cho từng trận</li>
+          <li>Hạn chót: <strong>1 giờ</strong> trước giờ bóng lăn — nộp trễ không được tính</li>
+          <li>Nhân sự nhắc lịch hàng ngày trên Slack kèm danh sách trận sắp tới</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📌 Lưu Ý Quan Trọng</div>
+      <ul class="note-list">
+        <li><span>🔒</span> <span>Dự đoán <strong>Đội vô địch & Vua phá lưới</strong> chỉ được nộp <strong>1 lần</strong> — khoá ngay khi xác nhận.</span></li>
+        <li><span>⏰</span> <span>Dự đoán từng trận phải nộp <strong>trước 1 giờ</strong> so với giờ bóng lăn — nộp trễ không được tính.</span></li>
+        <li><span>📊</span> <span>Bảng xếp hạng công bố <strong>sáng thứ Hai</strong> hàng tuần trên kênh <strong>#wc2026-league</strong>.</span></li>
+        <li><span>📧</span> <span>Điểm được tính tự động trong file theo dõi tổng.</span></li>
+        <li><span>❓</span> <span>Mọi thắc mắc liên hệ <strong>Phòng Nhân sự</strong>.</span></li>
+      </ul>
+    </div>
+
+    <div class="footer-note">
+      ⚽ Hãy cùng nhau cổ vũ World Cup 2026 thật sôi động! ⚽<br>
+      <em>Phòng Nhân sự — Live Group Vietnam Company Limited</em>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<script>
+// ══════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════
+const S = { user: null, preds: {}, email: null };
+
+// ══════════════════════════════════════════════════════
+//  EMAIL GATE
+// ══════════════════════════════════════════════════════
+const ALLOWED_DOMAIN = 'livepayments.com';
+
+function validateGateEmail(input) {
+  const val = input.value.trim().toLowerCase();
+  const status = document.getElementById('gate-status');
+  const err = document.getElementById('gate-error');
+  err.style.display = 'none';
+  if (!val) { status.style.display = 'none'; input.style.borderColor = ''; return; }
+  if (isValidCompanyEmail(val)) {
+    status.textContent = '✅'; status.style.display = 'block';
+    input.style.borderColor = '#4caf50';
+  } else {
+    status.textContent = '❌'; status.style.display = 'block';
+    input.style.borderColor = '#e53935';
+  }
+}
+
+function isValidCompanyEmail(email) {
+  const re = /^[a-zA-Z0-9._%+\-]+@livepayments\.com$/i;
+  return re.test(email);
+}
+
+function submitGate() {
+  const email = document.getElementById('gate-email').value.trim().toLowerCase();
+  const err = document.getElementById('gate-error');
+  if (!email) {
+    showGateError('Vui lòng nhập email công ty của bạn.');
+    return;
+  }
+  if (!isValidCompanyEmail(email)) {
+    showGateError(`❌ Email không hợp lệ. Chỉ chấp nhận email đuôi <strong>@${ALLOWED_DOMAIN}</strong>.<br>Ví dụ: ten.ban@livepayments.com`);
+    return;
+  }
+  // Valid — store email and dismiss gate
+  S.email = email;
+  document.getElementById('email-gate').style.opacity = '0';
+  document.getElementById('email-gate').style.transition = 'opacity .3s';
+  setTimeout(() => {
+    document.getElementById('email-gate').style.display = 'none';
+    // Pre-fill email in reg form
+    const disp = document.getElementById('reg-email-display');
+    if (disp) disp.value = email;
+  }, 300);
+}
+
+function showGateError(msg) {
+  const err = document.getElementById('gate-error');
+  err.innerHTML = msg;
+  err.style.display = 'block';
+  document.getElementById('gate-email').focus();
+}
+
+// ══════════════════════════════════════════════════════
+//  MATCH DATA — Vòng bảng Lượt 1 (24 trận)
+// ══════════════════════════════════════════════════════
+const FLAGS = {
+  'Mexico':'🇲🇽','Poland':'🇵🇱','USA':'🇺🇸','Wales':'🏴󠁧󠁢󠁷󠁬󠁳󠁿',
+  'England':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','Iran':'🇮🇷','Saudi Arabia':'🇸🇦','Colombia':'🇨🇴',
+  'Canada':'🇨🇦','Morocco':'🇲🇦','Croatia':'🇭🇷','Belgium':'🇧🇪',
+  'Brazil':'🇧🇷','Serbia':'🇷🇸','Switzerland':'🇨🇭','Cameroon':'🇨🇲',
+  'France':'🇫🇷','Australia':'🇦🇺','Denmark':'🇩🇰','Tunisia':'🇹🇳',
+  'Spain':'🇪🇸','Costa Rica':'🇨🇷','Germany':'🇩🇪','Japan':'🇯🇵',
+  'Portugal':'🇵🇹','Ghana':'🇬🇭','Uruguay':'🇺🇾','South Korea':'🇰🇷',
+  'Netherlands':'🇳🇱','Senegal':'🇸🇳','Ecuador':'🇪🇨','Qatar':'🇶🇦',
+  'Argentina':'🇦🇷','Italy':'🇮🇹','Chile':'🇨🇱','Nigeria':'🇳🇬',
+  'Turkey':'🇹🇷','Czech Republic':'🇨🇿','Austria':'🇦🇹','Egypt':'🇪🇬',
+  'Ivory Coast':'🇨🇮','Venezuela':'🇻🇪','Peru':'🇵🇪','New Zealand':'🇳🇿',
+  'Scotland':'🏴󠁧󠁢󠁳󠁣󠁴󠁿','Honduras':'🇭🇳','Jamaica':'🇯🇲','Iraq':'🇮🇶'
+};
+
+const MATCHES = [
+  // Jun 11
+  {id:1,d:'2026-06-11',t:'09:00',h:'Mexico',a:'Poland',g:'B'},
+  {id:2,d:'2026-06-11',t:'12:00',h:'USA',a:'Wales',g:'A'},
+  {id:3,d:'2026-06-11',t:'15:00',h:'England',a:'Iran',g:'A'},
+  {id:4,d:'2026-06-11',t:'18:00',h:'Saudi Arabia',a:'Colombia',g:'B'},
+  // Jun 12
+  {id:5,d:'2026-06-12',t:'09:00',h:'Canada',a:'Morocco',g:'C'},
+  {id:6,d:'2026-06-12',t:'12:00',h:'Croatia',a:'Belgium',g:'C'},
+  {id:7,d:'2026-06-12',t:'15:00',h:'Brazil',a:'Serbia',g:'D'},
+  {id:8,d:'2026-06-12',t:'18:00',h:'Switzerland',a:'Cameroon',g:'D'},
+  // Jun 13
+  {id:9,d:'2026-06-13',t:'09:00',h:'France',a:'Australia',g:'E'},
+  {id:10,d:'2026-06-13',t:'12:00',h:'Denmark',a:'Tunisia',g:'E'},
+  {id:11,d:'2026-06-13',t:'15:00',h:'Spain',a:'Costa Rica',g:'F'},
+  {id:12,d:'2026-06-13',t:'18:00',h:'Germany',a:'Japan',g:'F'},
+  // Jun 14
+  {id:13,d:'2026-06-14',t:'09:00',h:'Portugal',a:'Ghana',g:'G'},
+  {id:14,d:'2026-06-14',t:'12:00',h:'Uruguay',a:'South Korea',g:'G'},
+  {id:15,d:'2026-06-14',t:'15:00',h:'Netherlands',a:'Senegal',g:'H'},
+  {id:16,d:'2026-06-14',t:'18:00',h:'Ecuador',a:'Qatar',g:'H'},
+  // Jun 15
+  {id:17,d:'2026-06-15',t:'09:00',h:'Argentina',a:'Italy',g:'I'},
+  {id:18,d:'2026-06-15',t:'12:00',h:'Chile',a:'Nigeria',g:'I'},
+  {id:19,d:'2026-06-15',t:'15:00',h:'Turkey',a:'Czech Republic',g:'J'},
+  {id:20,d:'2026-06-15',t:'18:00',h:'Austria',a:'Egypt',g:'J'},
+  // Jun 16
+  {id:21,d:'2026-06-16',t:'09:00',h:'Ivory Coast',a:'Venezuela',g:'K'},
+  {id:22,d:'2026-06-16',t:'12:00',h:'Peru',a:'New Zealand',g:'K'},
+  {id:23,d:'2026-06-16',t:'15:00',h:'Scotland',a:'Honduras',g:'L'},
+  {id:24,d:'2026-06-16',t:'18:00',h:'Jamaica',a:'Iraq',g:'L'},
+];
+
+// ══════════════════════════════════════════════════════
+//  SAMPLE LEADERBOARD
+// ══════════════════════════════════════════════════════
+const SAMPLE_LB = [
+  {name:'Nguyễn Văn An',champ:'🇦🇷 Argentina',exact:5,correct:12,total:87},
+  {name:'Trần Thị Bình',champ:'🇧🇷 Brazil',exact:4,correct:14,total:82},
+  {name:'Phạm Minh Đức',champ:'🇫🇷 France',exact:6,correct:10,total:79},
+  {name:'Lê Thị Hương',champ:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 England',exact:3,correct:13,total:74},
+  {name:'Hoàng Văn Khoa',champ:'🇪🇸 Spain',exact:4,correct:11,total:71},
+  {name:'Vũ Thị Lan',champ:'🇩🇪 Germany',exact:3,correct:12,total:68},
+  {name:'Đặng Minh Lộc',champ:'🇵🇹 Portugal',exact:2,correct:13,total:65},
+  {name:'Bùi Thị Mai',champ:'🇦🇷 Argentina',exact:4,correct:9,total:62},
+  {name:'Ngô Văn Nam',champ:'🇧🇷 Brazil',exact:3,correct:10,total:58},
+  {name:'Lê Minh Châu',champ:'🇫🇷 France',exact:2,correct:11,total:54},
+  {name:'Trịnh Văn Phong',champ:'🇳🇱 Netherlands',exact:3,correct:9,total:51},
+  {name:'Lý Thị Quỳnh',champ:'🇪🇸 Spain',exact:1,correct:12,total:48},
+  {name:'Tô Minh Sơn',champ:'🇲🇽 Mexico',exact:2,correct:10,total:44},
+  {name:'Hà Thị Trang',champ:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 England',exact:2,correct:8,total:41},
+  {name:'Mai Văn Ưu',champ:'🇧🇷 Brazil',exact:1,correct:9,total:38},
+];
+
+// ══════════════════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════════════════
+document.getElementById('nav-tabs').addEventListener('click', e => {
+  const tab = e.target.dataset.tab;
+  if (!tab) return;
+  switchTab(tab);
+});
+
+function switchTab(id) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  document.querySelector(`.nav-tab[data-tab="${id}"]`).classList.add('active');
+  if (id === 'leaderboard') renderLB();
+}
+
+// ══════════════════════════════════════════════════════
+//  REGISTER
+// ══════════════════════════════════════════════════════
+function registerUser() {
+  const name = document.getElementById('reg-name').value.trim();
+  const champ = document.getElementById('reg-champion').value;
+  const scorer = document.getElementById('reg-scorer').value;
+  if (!name) { flash('Vui lòng nhập tên của bạn!', 'warn'); return; }
+  if (!champ) { flash('Vui lòng chọn Đội vô địch!', 'warn'); return; }
+  if (!scorer) { flash('Vui lòng chọn Vua phá lưới!', 'warn'); return; }
+
+  S.user = { name, email: S.email, champ, scorer };
+
+  // Show profile bar
+  document.getElementById('av-letter').textContent = name[0].toUpperCase();
+  document.getElementById('av-name').textContent = name;
+  document.getElementById('av-email').textContent = S.email;
+  document.getElementById('av-champ').textContent = champ;
+  document.getElementById('av-scorer').textContent = scorer.split(' (')[0];
+  document.getElementById('av-pts').textContent = '0';
+
+  document.getElementById('reg-section').classList.add('hidden');
+  document.getElementById('profile-bar').classList.remove('hidden');
+  document.getElementById('pred-section').classList.remove('hidden');
+
+  document.getElementById('stat-players').textContent = SAMPLE_LB.length + 1;
+
+  renderMatches();
+}
+
+// ══════════════════════════════════════════════════════
+//  RENDER MATCHES
+// ══════════════════════════════════════════════════════
+function renderMatches() {
+  const list = document.getElementById('match-list');
+  let html = '', curDate = '';
+
+  MATCHES.forEach(m => {
+    if (m.d !== curDate) {
+      curDate = m.d;
+      const dt = new Date(m.d + 'T12:00:00');
+      const ds = dt.toLocaleDateString('vi-VN', {weekday:'long', day:'numeric', month:'numeric', year:'numeric'});
+      html += `<div class="day-sep"><span>📅 ${ds}</span></div>`;
+    }
+    const p = S.preds[m.id];
+    const isToday = m.d === '2026-06-11';
+    const statusBadge = p
+      ? `<span class="badge-done">✅ Đã dự đoán</span>`
+      : isToday
+        ? `<span class="badge-today">🔴 Hôm nay</span>`
+        : `<span style="font-size:11px;color:#999">⏳ Sắp tới</span>`;
+
+    html += `
+    <div class="match-card ${p ? 'done' : 'open'}" id="mc-${m.id}">
+      <div class="match-meta">
+        <span>⏰ ${m.t} &nbsp;<span class="badge-group">Bảng ${m.g}</span></span>
+        ${statusBadge}
+      </div>
+      <div class="match-body">
+        <div class="team-name team-home">${FLAGS[m.h]||'🏳️'} ${m.h}</div>
+        <div class="score-wrap">
+          <input type="number" class="score-in" id="h-${m.id}" min="0" max="20"
+            placeholder="0" value="${p ? p.h : ''}" oninput="countPreds()">
+          <span class="score-dash">–</span>
+          <input type="number" class="score-in" id="a-${m.id}" min="0" max="20"
+            placeholder="0" value="${p ? p.a : ''}" oninput="countPreds()">
+        </div>
+        <div class="team-name team-away">${m.a} ${FLAGS[m.a]||'🏳️'}</div>
+      </div>
+    </div>`;
+  });
+
+  list.innerHTML = html;
+  countPreds();
+}
+
+function countPreds() {
+  let done = 0;
+  MATCHES.forEach(m => {
+    const h = document.getElementById('h-' + m.id);
+    const a = document.getElementById('a-' + m.id);
+    if (h && h.value !== '' && a && a.value !== '') done++;
+  });
+  const el1 = document.getElementById('cnt-done');
+  const el2 = document.getElementById('cnt-left');
+  if (el1) el1.textContent = done;
+  if (el2) el2.textContent = MATCHES.length - done;
+}
+
+// ══════════════════════════════════════════════════════
+//  SAVE ALL PREDICTIONS
+// ══════════════════════════════════════════════════════
+function saveAll() {
+  let count = 0;
+  MATCHES.forEach(m => {
+    const hEl = document.getElementById('h-' + m.id);
+    const aEl = document.getElementById('a-' + m.id);
+    if (hEl && aEl && hEl.value !== '' && aEl.value !== '') {
+      S.preds[m.id] = { h: parseInt(hEl.value), a: parseInt(aEl.value) };
+      const card = document.getElementById('mc-' + m.id);
+      if (card) {
+        card.classList.remove('open');
+        card.classList.add('done');
+        // Update status badge
+        const meta = card.querySelector('.match-meta');
+        const badges = meta.querySelectorAll('span:last-child, [class^="badge"]');
+        // Find the last span and replace
+        const spans = meta.querySelectorAll('span');
+        const lastSpan = spans[spans.length - 1];
+        lastSpan.outerHTML = `<span class="badge-done">✅ Đã dự đoán</span>`;
+      }
+      count++;
+    }
+  });
+  countPreds();
+  if (count > 0) {
+    flash(`✅ Đã lưu <strong>${count} dự đoán</strong> thành công!`, 'success');
+    // Update points display (demo)
+    const pts = count * 3; // demo calculation
+    document.getElementById('av-pts').textContent = pts;
+  } else {
+    flash('Chưa có dự đoán nào được nhập!', 'warn');
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  LEADERBOARD
+// ══════════════════════════════════════════════════════
+function renderLB() {
+  let data = [...SAMPLE_LB];
+  if (S.user) {
+    data.push({ name: S.user.name + ' 👈 (bạn)', champ: S.user.champ, exact: 0, correct: 0, total: 0, isMe: true });
+    data.sort((a, b) => b.total - a.total);
+  }
+  const tbody = document.getElementById('lb-body');
+  tbody.innerHTML = data.map((p, i) => {
+    const r = i + 1;
+    const medal = r === 1 ? '🥇' : r === 2 ? '🥈' : r === 3 ? '🥉' : `<span style="font-size:13px;color:#888">${r}</span>`;
+    const me = p.isMe ? ' me' : '';
+    return `
+    <tr class="${me}">
+      <td><span class="rank-medal">${medal}</span></td>
+      <td><div class="p-name">${p.name}</div><div class="p-champ">${p.champ}</div></td>
+      <td>${p.champ.split(' ')[0]}</td>
+      <td><span style="background:#e8f5e9;padding:2px 8px;border-radius:8px;font-size:12px;font-weight:700;color:#1b5e20">${p.exact}</span></td>
+      <td>${p.correct}</td>
+      <td><span class="total-pts">${p.total}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════
+//  FLASH MESSAGE
+// ══════════════════════════════════════════════════════
+function flash(msg, type = 'success') {
+  const existing = document.getElementById('flash-msg');
+  if (existing) existing.remove();
+  const el = document.createElement('div');
+  el.id = 'flash-msg';
+  el.className = `alert alert-${type === 'warn' ? 'warn' : 'success'} alert-anim`;
+  el.innerHTML = msg;
+  el.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:999;min-width:280px;max-width:90vw;box-shadow:0 4px 20px rgba(0,0,0,.2);';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+// ══════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════
+renderLB();
+</script>
+</body>
+</html>
